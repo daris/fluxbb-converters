@@ -1,5 +1,7 @@
 ##
-##           Author:  David 'Chacmool' Djurbäck ( chacmool@spray.se )
+##           Author:  daris (daris91+fluxbb@gmail.com)
+##
+##   Orginal author:  David 'Chacmool' Djurbäck ( chacmool@spray.se )
 ##
 ##  Affected tables:  All FluxBB tables are dumped.
 ##

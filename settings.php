@@ -53,7 +53,7 @@
 		{
 			if (substr($file, 0, 1) != '.' && @$dir = opendir('./'.$file))
 			{
-				$selected = $_SESSION['forum'] == $file ? ' selected' : '';
+				$selected = (isset($_SESSION['forum']) && $_SESSION['forum'] == $file) ? ' selected' : '';
 				echo "\t\t\t\t\t".'<option value="'.$file.'"'.$selected.'>'.$file.'</option>'."\n";
 				closedir($dir);
 			}

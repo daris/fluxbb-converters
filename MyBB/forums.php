@@ -6,7 +6,7 @@ while($cur_cat = $db->fetch_assoc($cat_result))
 	$categories[] = $cur_cat['id'];
 
 // Fetch forum info
-$result = $fdb->query('SELECT * FROM '.$fdb->prefix.$_SESSION['phpnuke'].'forums WHERE fid>'.$start.' AND type=\'f\' ORDER BY fid LIMIT '.$_SESSION['limit']) or myerror('phpBB: Unable to get table: forums', __FILE__, __LINE__, $fdb->error());
+$result = $fdb->query('SELECT * FROM '.$fdb->prefix.'forums WHERE fid>'.$start.' AND type=\'f\' ORDER BY fid LIMIT '.$_SESSION['limit']) or myerror('Unable to get table: forums', __FILE__, __LINE__, $fdb->error());
 $last_id = -1;
 while($ob = $fdb->fetch_assoc($result))
 {

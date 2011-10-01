@@ -3,7 +3,7 @@
 // Get phpBB config
 echo "\n<br>Updating FluxBB settings"; flush();
 $phpconfig = array();
-$result = $fdb->query('SELECT name, value FROM '.$fdb->prefix.$_SESSION['phpnuke'].'settings') or myerror('Unable to get forum info', __FILE__, __LINE__, $fdb->error());
+$result = $fdb->query('SELECT name, value FROM '.$fdb->prefix.'settings') or myerror('Unable to get forum info', __FILE__, __LINE__, $fdb->error());
 while (list($name, $var) = $fdb->fetch_row($result))
 	$phpconfig[$name] = $var;
 
