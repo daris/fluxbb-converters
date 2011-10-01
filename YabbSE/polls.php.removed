@@ -1,0 +1,54 @@
+<?php
+
+	$start = isset($_GET['start']) ? (int)$_GET['start'] : 0;
+	echo "\n<br>Converting polls: $start...<br>"; flush();
+
+	// Check if PunPoll is installed
+	if($start == 0)
+	{
+		if( !($db->query('SELECT count(*) FROM '.$_SESSION['pun'].'polls')) )
+		{
+			echo 'PunPoll not installed, redirecting...';
+			echo '<script type="text/javascript">window.location="index.php?page='.++$_GET['page'].'"</script>';
+			exit;
+		}
+	}
+
+	$result = $fdb->query('SELECT p.*,t.ID_TOPIC FROM '.$_SESSION['php'].'topics AS t, '.$_SESSION['php'].'polls AS p WHERE t.ID_POLL=p.ID_POLL AND p.ID_POLL>'.$start.' ORDER BY p.ID_POLL LIMIT '.$_SESSION['limit']) or myerror("Unable to get polls", __FILE__, __LINE__, $fdb->error());
+	$last_id = -1;
+	while($ob = $fdb->fetch_assoc($result)){
+
+		$last_id = $ob['ID_POLL'];
+		echo '<br>'.$ob['question'].' ('.$ob['ID_POLL'].")\n"; flush();
+
+		// Step through the options and votes
+		$votes = array();
+		$options = array();
+		for($i = 1; $i < 9; $i++)
+		{
+			if($ob['option'.$i] != '')
+			{
+				$votes[] = $ob['votes'.$i];
+				$options[] = $ob['option'.$i];
+			}
+		}
+
+		// Dataarray
+		$todb = array(
+			'id'				=>		$ob['ID_POLL'],
+			'topic_id'		=>		$ob['ID_TOPIC'],
+			'question'		=>		$ob['question'],
+			'voters'			=>		','.$ob['votedMemberIDs'].',',
+			'answers'		=>		serialize($options),
+			'votes'			=>		implode('|', $votes),
+			'tot_votes'		=>		array_sum($votes),
+		);
+
+		// Save data
+		insertdata('polls', $todb, __FILE__, __LINE__);
+
+	}
+
+	convredirect('ID_POLL', 'polls', $last_id);
+
+?>

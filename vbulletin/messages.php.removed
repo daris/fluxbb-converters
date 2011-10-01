@@ -1,0 +1,43 @@
+<?php
+
+	$start = isset($_GET['start']) ? (int)$_GET['start'] : 0;
+	echo "\n<br>Converting messages: $start...<br>"; flush();
+
+	// Check if PunPMS is installed
+	if($start == 0){
+		if( !($db->query('SELECT count(*) FROM '.$_SESSION['pun'].'messages')) ){
+			echo '<script type="text/javascript">window.location="index.php?page='.++$_GET['page'].'"</script>';
+			exit;
+		}
+	}
+
+	$result = $fdb->query('SELECT pm.*, pmtext.* FROM '.$_SESSION['php'].'pm AS pm LEFT JOIN '.$_SESSION['php'].'pmtext AS pmtext ON pmtext.pmtextid=pm.pmtextid WHERE pmid>'.$start.' ORDER BY pmid LIMIT '.$_SESSION['limit']) or myerror("Unable to get message list", __FILE__, __LINE__, $fdb->error());
+	$last_id = -1;
+	while($ob = $fdb->fetch_assoc($result)){
+
+		$last_id = $ob['pmid'];
+		echo $ob['title'].' ('.$ob['pmid'].")<br>\n"; flush();
+
+		// Check for anonymous poster id problem
+		$ob['userid'] == 1 ? $ob['userid'] = $_SESSION['admin_id'] : null;
+		$ob['fromuserid'] == 1 ? $ob['fromuserid'] = $_SESSION['admin_id'] : null;
+
+		$todb = array(
+			'owner'			=>		$ob['userid'],
+			'subject'		=>		$ob['title'],
+			'message'		=>		convert_posts($ob['message']),
+			'sender'			=>		$ob['fromusername'],
+			'sender_id'		=>		$ob['fromuserid'],
+			'posted'			=>		$ob['dateline'],
+			'smileys'		=>		$ob['allowsmilie'],
+			'status'			=>		(int)($ob['folderid'] != 0),
+			'showed'			=>		(int)($ob['messageread'] > 0),
+		);
+		
+		insertdata('messages', $todb, __FILE__, __LINE__);
+
+	}
+
+	convredirect('pmid', 'pm', $last_id);
+
+?>

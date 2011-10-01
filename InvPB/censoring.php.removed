@@ -1,0 +1,25 @@
+<?php
+
+	$start = isset($_GET['start']) ? (int)$_GET['start'] : 0;
+	echo "\n<br>Converting cencored words: $start...<br>"; flush();
+	$result = $fdb->query('SELECT * FROM '.$_SESSION['php'].'badwords WHERE wid>'.$start.' ORDER BY wid LIMIT '.$_SESSION['limit']) or myerror("Unable to get posts", __FILE__, __LINE__, $fdb->error());
+	$last_id = -1;
+	while($ob = $fdb->fetch_assoc($result)){
+
+		$last_id = $ob['wid'];
+		echo $ob['type'].' -> '.$ob['swop']."<br>\n"; flush();
+
+		// Dataarray
+		$todb = array(
+			'id'				=>		$ob['wid'],
+			'search_for'	=>		$ob['type'],
+			'replace_with'	=>		$ob['swop'],
+		);
+
+		// Save data
+		insertdata('', $todb, __FILE__, __LINE__);
+	}
+
+	convredirect('wid', 'badwords', $last_id);
+
+?>

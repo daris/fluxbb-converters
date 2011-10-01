@@ -1,0 +1,49 @@
+<?php
+
+	$start = isset($_GET['start']) ? (int)$_GET['start'] : 0;
+	echo "\n<br>Converting polls: $start...<br>"; flush();
+
+	// Check if PunPoll is installed
+	if($start == 0){
+		if( !($db->query('SELECT count(*) FROM '.$_SESSION['pun'].'polls')) ){
+			echo 'PunPoll not installed, redirecting...';
+			echo '<script type="text/javascript">window.location="index.php?page='.++$_GET['page'].'"</script>';
+			exit;
+		}
+	}
+
+	$result = $fdb->query('SELECT p.*,t.threadid FROM '.$_SESSION['php'].'poll AS p INNER JOIN '.$_SESSION['php'].'thread AS t ON t.pollid=p.pollid WHERE p.pollid>'.$start.' ORDER BY pollid LIMIT '.$_SESSION['limit']) or myerror("Unable to get polls", __FILE__, __LINE__, $fdb->error());
+	$last_id = -1;
+	while($ob = $fdb->fetch_assoc($result)){
+
+		$last_id = $ob['pollid'];
+		echo '<br>'.$ob['question'].' ('.$ob['pollid'].")\n"; flush();
+
+		// Fetch voters
+		$voters = array();
+		$res = $fdb->query('SELECT userid FROM '.$_SESSION['php'].'pollvote WHERE pollid='.$ob['pollid']) or myerror("Unable to fetch poll voters", __FILE__, __LINE__, $fdb->error());
+		while($vote = $fdb->fetch_assoc($res)){
+			$vote['userid'] == 1 ? $vote['userid'] = $_SESSION['admin_id'] : null;
+			$voters[] = $vote['userid'];
+		}
+
+		// Dataarray
+		$todb = array(
+			'id'				=>		$ob['pollid'],
+			'topic_id'		=>		$ob['threadid'],
+			'question'		=>		$ob['question'],
+			'answers'		=>		serialize(explode('|||', $ob['options'])),
+			'voters'			=>		','.implode(',', $voters).',',
+			'votes'			=>		str_replace('|||', '|', $ob['votes']),
+			'type'			=>		$ob['multiple'],
+			'tot_votes'		=>		$ob['voters'],
+		);
+
+		// Save data
+		insertdata('polls', $todb, __FILE__, __LINE__);
+
+	}
+
+	convredirect('pollid', 'poll', $last_id);
+
+?>

@@ -1,0 +1,230 @@
+__________
+2005-??-??
+¯¯¯¯¯¯¯¯¯¯
+ · Added support for UBB.threads (working on it)
+
+=========================================================================================
+                                   Released v1.4.0
+=========================================================================================
+__________
+2005-09-29
+¯¯¯¯¯¯¯¯¯¯
+ · Added a "Make a Donation" button. Use it! :)
+ · PhpBB: Fixed a topic-convert problem when "topic_last_post_id" was not set (which should not happen though).
+ · PhpBB: Removed messages from the converter as I don't support that mod anymore.
+__________
+2005-09-04
+¯¯¯¯¯¯¯¯¯¯
+ · PhpBB: Removed cencored word list conversion.
+ · Added support for Fusion forum conversion.
+ · Added progress info at the end of the conversion.
+ · Added a link to the "Rebuild search index" page.
+
+=========================================================================================
+                                   Released v1.3.0
+=========================================================================================
+__________
+2005-08-25
+¯¯¯¯¯¯¯¯¯¯
+ · The converter now also updates the cached files (bans, quickjump, config and ranks).
+ · Fixed a problem where $_SESSION and $_GET variables were mixed.
+ · Fixed file and line info not pointing to the function.php file in most of the error messages.
+ · Added support for SMF (Simple Machines Forum).
+ · Added a "What to do now" description when an error occur.
+ · Moved some code from start.php (which led to the removal of start.php in most forums).
+ · Moved code from several ./FORUMS/end.php to ./end.php to make it easier to update.
+ · Cleaned up the code and removed some minor bugs.
+ · Changed the php start tagg from <? to <?php everywhere in the code.
+__________
+2005-08-04
+¯¯¯¯¯¯¯¯¯¯
+ · Removed the cencoring conversion from InvPB.
+__________
+2005-06-07
+¯¯¯¯¯¯¯¯¯¯
+ · Added support for converting Simple Board.
+
+=========================================================================================
+                                   Released v1.2.2
+=========================================================================================
+__________
+2005-05-24
+¯¯¯¯¯¯¯¯¯¯
+ · Fixed a problem where the guest account had normal user privileges.
+ · Removed poll conversion, as PunPoll (my version) does not exist for PunBB 1.2.*, which caused problems.
+ · PhpBB: Removed "o_flood_interval" from the config conversion as it's removed in newer versions of PunBB.
+ · MiniBB: Fixed some "Undefined variable" PHP-warnings.
+
+=========================================================================================
+                                   Released v1.2.1
+=========================================================================================
+__________
+2005-03-22
+¯¯¯¯¯¯¯¯¯¯
+ · InbPB: Fixed problem where user with id=1 was not converted properly (reported by kiplantt)
+ · vBulletin: Fixed issues where "old" database fields, such as last_action and status, gave error messages.
+__________
+2005-03-15
+¯¯¯¯¯¯¯¯¯¯
+ · Removed 'closed'-variable from the forum-database-migration. (reported by Mike)
+ · Phorum: Fixed a problem where guests posts disappeared (reported by Cyril)
+__________
+2005-02-22
+¯¯¯¯¯¯¯¯¯¯
+ · PhpBB: Fixed problem with closed forums (reported by Justin)
+ · PhpBB: Users having a registered date in the form "Nov 10, 2000" now
+   are have their registered date properly converted (reported by Justin)
+ · Phorum: Fixed problem where the last-post-dates in viewtopic was not
+   set properly. (reported by Cyril)
+
+=========================================================================================
+                                   Released v1.2.0
+=========================================================================================
+__________
+2005-02-01
+¯¯¯¯¯¯¯¯¯¯
+ · Fixed a SQL-problem when looking for forum tables
+__________
+2005-01-22
+¯¯¯¯¯¯¯¯¯¯
+ · Added support for Phorum (only ver. 5.0.13 tested)
+   (thanks jeronimo for the database-dump)
+ · Fixed the the index-problem (forums migrated to PunBB
+   1.1.* could not be upgraded to PunBB 1.2)
+
+=========================================================================================
+                                   Released v1.1.0
+=========================================================================================
+__________
+2004-12-30
+¯¯¯¯¯¯¯¯¯¯
+ · Converter now handles PunBB 1.2
+ · A lot of small fixes...
+__________
+2004-11-23
+¯¯¯¯¯¯¯¯¯¯
+ · InvPB 2.x: Fixed a problem where the converter stopped
+   when trying to fetch last_post_id for a forum.
+ · Changed first id (when fetching data from most tables)
+   to 0 instead of -1 to prevent 'duplicate entry'-errors.
+ · YabbSE: Fixed a bug where the account with user_id one
+   were not converted.
+ · YabbSE: Fixed problem converting a forum from a non-localhost forum
+ · InbPB: "<br />" were not converted to linebreaks.
+
+ A big thanks goes to Jason Terk and Sanne Schaap for their help!
+__________
+2004-11-20
+¯¯¯¯¯¯¯¯¯¯
+ · InvPB: Fixed a problem where a category with id -1
+   caused a duplicate entry error.
+
+=========================================================================================
+                                   Released v1.0.0
+=========================================================================================
+__________
+2004-10-29
+¯¯¯¯¯¯¯¯¯¯
+ · Minibb: Added BB-code-conversion of urls and quotes.
+
+=========================================================================================
+                                   Released beta 3
+=========================================================================================
+__________
+2004-10-29
+¯¯¯¯¯¯¯¯¯¯
+ · InvPB: Fixed mixup between last_poster_id and
+   last_post_id when converting forums and topics.
+
+=========================================================================================
+                                   Released beta 2
+=========================================================================================
+__________
+2004-10-21
+¯¯¯¯¯¯¯¯¯¯
+ · Added support for converting YabbSE-forums.
+ · The converted forum can now be converted directly
+   from another server, and/or with another username.
+
+=========================================================================================
+                                   Released beta 1
+=========================================================================================
+__________
+2004-10-20
+¯¯¯¯¯¯¯¯¯¯
+ · Fixed a bug where users using a databases with a
+   name including a '-' were unable to convert the forum.
+__________
+2004-10-13
+¯¯¯¯¯¯¯¯¯¯
+ · Added ability to add/remove administrators and moderators in the converter.
+ · Added more checks that prevents users from entering wrong information.
+ · PUN_DEBUG set to on by default.
+ · Made an own error-function instead of using the one provided in PunBB.
+
+
+
+=========================================================================================
+                                   Old InvPB changelog
+=========================================================================================
+__________
+2004-05-30
+¯¯¯¯¯¯¯¯¯¯
+ · Fixed error when PunPoll was not installed.
+ · No band/badwords now don't give the user an errormessage.
+__________
+2004-04-17
+¯¯¯¯¯¯¯¯¯¯
+ · Added a lock-file when finished to prevent users from clearing the database.
+__________
+2004-04-13
+¯¯¯¯¯¯¯¯¯¯
+ · Released beta 1
+
+=========================================================================================
+												Old PhpBB changelog:
+=========================================================================================
+__________
+2004-09-25
+¯¯¯¯¯¯¯¯¯¯
+ · Fixed a bug that caused all email-addresses to be banned.
+__________
+2004-09-18
+¯¯¯¯¯¯¯¯¯¯
+ · Fixed a bug where all PhpNuke-users where administrators. (thanks multiverso)
+ · Fixed an error causing 'last post' to be zero for all users.
+__________
+2004-09-17
+¯¯¯¯¯¯¯¯¯¯
+ · Added support to convert forums from PhpNuke (v7.4). (requested by brob)
+__________
+2004-04-19
+¯¯¯¯¯¯¯¯¯¯
+ · Fixed a problem where the converter stops if you don't have PunPoll.
+__________
+2004-04-17
+¯¯¯¯¯¯¯¯¯¯
+ · Added support for the 'Private Message System' mod.
+ · Added a lock-file when finished to prevent users from clearing the database.
+ · Moved/rewrote alot of stuff to fit the new converter "design".
+ · Fixed alot of addslashes problems (errors when using ' and ")
+__________
+2004-04-14
+¯¯¯¯¯¯¯¯¯¯
+ · Fixed bug where forum with an apostrophe didn't convert properly.
+__________
+2004-03-01
+¯¯¯¯¯¯¯¯¯¯
+ · Fixed bug that made guest's post dissapear
+__________
+2004-01-05
+¯¯¯¯¯¯¯¯¯¯
+ · Fixed a bug where normal variables and session variables collided. (thanks Mako!)
+ · Fixed a lot of query-issues regarding '. (thanks al__!)
+__________
+2004-01-02
+¯¯¯¯¯¯¯¯¯¯
+ · Released beta 1
+
+
+

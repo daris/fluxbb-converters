@@ -1,0 +1,47 @@
+<?php
+/*
+	// Add the admin account
+	echo "\n<br>Adding admin account"; flush();
+
+	// Set last id
+	$result = $fdb->query('SELECT userid FROM '.$_SESSION['php']."users ORDER BY userid DESC LIMIT 1") or myerror('Unable to add Admin-user<br>', __FILE__, __LINE__, $fdb->error());
+	list($last_id) = $fdb->fetch_row($result);
+	$_SESSION['admin_id'] = ++$last_id;
+
+	// Fetch current admin configuration
+	$result = $fdb->query('SELECT * FROM '.$_SESSION['php']."users WHERE userid=1") or myerror('Unable to fetch Admin-info<br>', __FILE__, __LINE__, $fdb->error());
+
+	// Add user account if there are a user with id 1
+	if($fdb->num_rows($result) > 0)
+	{
+		$ob = $fdb->fetch_assoc($result);
+
+		// Calculate post count
+		$res = $fdb->query('SELECT count(*) FROM '.$_SESSION['php'].'messages WHERE userid=1') or myerror("Unable to get post count", __FILE__, __LINE__, $fdb->error());
+		$ob['post_count'] = $fdb->result($res, 0);
+	
+		// Fetch last post #id
+		$lastresult = $fdb->query('SELECT id FROM '.$_SESSION['php'].'messages WHERE userid=1 ORDER BY id DESC LIMIT 1') or myerror("Unable to get user info", __FILE__, __LINE__, $fdb->error());
+		$last_post = $fdb->result($lastresult, 0);
+	
+		// Dataarray
+		$todb = array(
+			'id'					=>		$last_id,
+			'username'			=>		$ob['username'],
+			'password'			=>		$ob['user_password'],
+			'url'					=>		$ob['user_website'],
+			'icq'					=>		$ob['user_icq'],
+			'num_posts'			=>		$ob['post_count'],
+			'last_post'			=>		$last_post,
+			'registered'		=>		strtotime($ob['user_regdate']),
+			'location'			=>		$ob['user_from'],
+			'email_setting'	=>		(int)($ob['user_viewemail'] == "0"),
+			'email'				=>		$ob['user_email'],
+		);
+	
+		// Save data
+		insertdata('users', $todb, __FILE__, __LINE__);
+	}
+*/
+	$location = '<script type="text/javascript">window.location="index.php?page='.++$_GET['page'].'"</script>';
+?>

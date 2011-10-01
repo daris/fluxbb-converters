@@ -1,0 +1,50 @@
+<?php
+
+	// Add the admin account
+	echo "\n<br>Adding admin account"; flush();
+
+	// Check if there are any user with id=1
+	$res = $fdb->query('SELECT u.*,t.signature, f.field2 AS location FROM '.$_SESSION['php'].'user AS u, '.$_SESSION['php'].'usertextfield AS t, '.$_SESSION['php'].'userfield AS f WHERE t.userid=u.userid AND f.userid=u.userid AND u.userid=1') or myerror('Unable to fetch user info', __FILE__, __LINE__, $fdb->error());
+
+	if($fdb->num_rows($res) == 1){
+
+		// Save array
+		$ob = $fdb->fetch_assoc($res);
+
+		// Fetch last user id
+		$result = $fdb->query('SELECT userid FROM '.$_SESSION['php']."user ORDER BY userid DESC LIMIT 1") or myerror('Unable to fetch last user id', __FILE__, __LINE__, $fdb->error());
+		list($last_id) = $fdb->fetch_row($result);
+
+		// Fetch last_post_time
+		$result = $fdb->query('SELECT dateline FROM '.$_SESSION['php'].'post WHERE userid='.$ob['userid'].' ORDER BY postid DESC LIMIT 1') or myerror('Unable to fetch last user id', __FILE__, __LINE__, $fdb->error());
+		$ob['dateline'] = $fdb->num_rows($result) > 0 ? $fdb->result($result, 0) : 'null';
+
+		// Set admin_id to last_id
+		$_SESSION['admin_id'] = ++$last_id;
+
+		// Dataarray
+		$todb = array(
+			'id'					=>		$_SESSION['admin_id'],
+			'username'			=> 	$ob['username'],
+			'password'			=> 	'',
+			'url'					=> 	$ob['homepage'],
+			'icq'					=> 	$ob['icq'],
+			'msn'					=> 	$ob['msn'],
+			'aim'					=> 	$ob['aim'],
+			'yahoo'				=> 	$ob['yahoo'],
+			'signature'			=> 	$ob['signature'],
+			'timezone'			=> 	$ob['timezoneoffset'],
+			'num_posts'			=> 	$ob['posts'],
+			'registered'		=> 	$ob['joindate'],
+			'last_post'			=>		$ob['dateline'],
+			'last_visit'		=> 	$ob['lastvisit'],
+			'location'			=> 	$ob['location'],
+			'email'				=> 	$ob['email'],
+		);
+		
+		insertdata('users', $todb, __FILE__, __LINE__);
+	}
+
+	$location = '<script type="text/javascript">window.location="index.php?page='.++$_GET['page'].'"</script>';
+
+?>

@@ -1,0 +1,5 @@
+<?php
+
+	$location = '<script type="text/javascript">window.location="index.php?page='.++$_GET['page'].'"</script>';
+
+?>

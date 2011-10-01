@@ -1,0 +1,41 @@
+<?php
+
+	$start = isset($_GET['start']) ? (int)$_GET['start'] : 0;
+	echo "\n<br>Converting messages: $start...<br>"; flush();
+
+	// Check if PunPMS is installed
+	if($start == 0){
+		if( !($db->query('SELECT count(*) FROM '.$_SESSION['pun'].'messages')) ){
+			echo '<script type="text/javascript">window.location="index.php?page='.++$_GET['page'].'"</script>';
+			exit;
+		}
+	}
+
+	$result = $fdb->query('SELECT * FROM '.$_SESSION['php'].'instant_messages WHERE ID_IM>'.$start.' ORDER BY ID_IM LIMIT '.$_SESSION['limit']) or myerror("Unable to get message list", __FILE__, __LINE__, $fdb->error());
+	$last_id = -1;
+	while($ob = $fdb->fetch_assoc($result)){
+
+		$last_id = $ob['pmid'];
+		echo $ob['subject'].' ('.$ob['ID_IM'].")<br>\n"; flush();
+
+		// Check for anonymous poster id problem
+		$ob['ID_MEMBER_FROM'] == 1 ? $ob['ID_MEMBER_FROM'] = $_SESSION['admin_id'] : null;
+		$ob['ID_MEMBER_TO'] == 1 ? $ob['ID_MEMBER_TO'] = $_SESSION['admin_id'] : null;
+
+		$todb = array(
+			'owner'			=>		$ob['ID_MEMBER_TO'],
+			'subject'		=>		$ob['subject'],
+			'message'		=>		convert_posts($ob['body']),
+			'sender'			=>		$ob['fromName'],
+			'sender_id'		=>		$ob['ID_MEMBER_FROM'],
+			'posted'			=>		$ob['msgtime'],
+			'showed'			=>		$ob['readBy'],
+		);
+		
+		insertdata('messages', $todb, __FILE__, __LINE__);
+
+	}
+
+	convredirect('pmid', 'pm', $last_id);
+
+?>

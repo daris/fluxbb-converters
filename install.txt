@@ -1,0 +1,25 @@
+Installation instructions:
+ 1. Install FluxBB on the server (example: "www.example.com/fluxbb/").
+ 2. Install mods (AutoPoll, New Private Messaging System) if you want them converted. *
+ 3. Create a subdirectory in the FluxBB-directory (example name: "converter").
+ 4. Put all files from the converter zipfile in that directory.
+ 5. Go to the converter page ("www.example.com/fluxbb/converter/").
+ 6. If your forum isn't located at the same forum as FluxBB, choose "Different host/user".
+ 7. Choose which forum software you want to convert from.
+ 8. Enter prefix and such information in the other fields/lists. **
+ 9. Press 'Start converter'.
+10. When the converter is done, add/remove admins and moderators.
+11. Remove the converter files.
+12. Done! You're now ready yo use FluxBB!
+
+  * May not be supported by all converters.
+
+ ** If you don't know your forums database/prefix-settings,
+    you'll probably find it in the config-file.
+
+    If you find a bug, or have any problems with
+    the converter, please send me an email:
+     - chacmool@gmail.com
+
+    If you want to, please add your forum to PunBBig:
+     - http://punbbig.shacknet.nu/

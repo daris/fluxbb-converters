@@ -1,0 +1,52 @@
+<?php
+
+	// Add the admin account
+	echo "\n<br>Adding admin account"; flush();
+	$res = $fdb->query('SELECT * FROM '.$_SESSION['php'].'users WHERE user_id=1') or myerror('Unable to fetch user info', __FILE__, __LINE__, $fdb->error());
+	if($fdb->num_rows($res) == 1){
+
+		// Save array
+		$ob = $fdb->fetch_assoc($res);
+
+		// Fetch last user id
+		$result = $fdb->query('SELECT user_id FROM '.$_SESSION['php']."users ORDER BY user_id DESC LIMIT 1") or myerror('Unable to fetch last user id', __FILE__, __LINE__, $fdb->error());
+		list($last_id) = $fdb->fetch_row($result);
+
+		// Set admin_id to last_id
+		$_SESSION['admin_id'] = ++$last_id;
+
+		// Dataarray
+		$todb = array(
+			'id'					=>		$_SESSION['admin_id'],
+			'username'			=> 	$ob['username'],
+			'password'			=> 	$ob['password'],
+			'email'				=> 	$ob['email'],
+			'num_posts'			=> 	$ob['posts'],
+			'email_setting'	=>		$ob['hide_email'],
+			'signature'			=> 	$ob['signature'],
+			'registered'		=> 	$ob['date_added'],
+
+
+/*
+			'url'					=> 	$ob['websiteUrl'],
+			'title'				=>		$ob['usertitle'],
+			'icq'					=> 	$ob['ICQ'],
+			'aim'					=> 	$ob['AIM'],
+			'msn'					=>		$ob['MSN'],
+			'yahoo'				=> 	$ob['YIM'],
+			'timezone'			=> 	$ob['timeOffset'],
+			'last_visit'		=> 	$ob['lastLogin'],
+			'location'			=> 	$ob['location'],
+*/
+		);
+
+		if($_SESSION['pun_version'] == '1.1')
+			$todb['last_action'] = $ob['lastLogin'];
+
+		insertdata('users', $todb, __FILE__, __LINE__);
+
+	}
+
+	$location = '<script type="text/javascript">window.location="index.php?page='.++$_GET['page'].'"</script>';
+
+?>

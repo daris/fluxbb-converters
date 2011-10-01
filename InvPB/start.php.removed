@@ -1,0 +1,66 @@
+<?php
+
+	// Add the admin account
+	echo "\n<br>Adding admin account"; flush();
+
+	// Check if there are any user with id=1
+	$res = $fdb->query('SELECT e.*, m.* FROM '.$_SESSION['php'].'members AS m LEFT JOIN '.$_SESSION['php'].'member_extra AS e ON m.id=e.id WHERE m.id=1') or myerror('Unable to fetch user info', __FILE__, __LINE__, $fdb->error());
+
+	if($fdb->num_rows($res) == 1){
+
+		// Save array
+		$ob = $fdb->fetch_assoc($res);
+
+		// Fetch last user id
+		$result = $fdb->query('SELECT id FROM '.$_SESSION['php']."members ORDER BY id DESC LIMIT 1") or myerror('Unable to fetch last user id', __FILE__, __LINE__, $fdb->error());
+		list($last_id) = $fdb->fetch_row($result);
+
+		// Set admin_id to last_id
+		$_SESSION['admin_id'] = ++$last_id;
+		
+		// Settings
+		$ob['time_offset'] == '' ? $ob['time_offset'] = 0 : null;
+		$ob['last_post'] == '' ? $ob['last_post'] = 'null' : null;
+
+//		list($posts, $topics) = explode("&", $ob['view_prefs']);
+
+		// Dataarray
+		$todb = array(
+			'id'					=>		$last_id,
+			'username'			=>		$ob['name'],
+//			'password'			=>		$ob['member_login_key'],
+			'url'					=>		$ob['website'],
+			'icq'					=>		$ob['icq_number'],
+			'msn'					=>		$ob['msnname'],
+			'aim'					=>		$ob['aim_name'],
+			'yahoo'				=>		$ob['yahoo'],
+			'signature'			=>		$ob['signature'],
+			'timezone'			=>		$ob['time_offset'],
+			'num_posts'			=>		$ob['posts'],
+			'last_post'			=>		$ob['last_post'],
+			'show_img'			=>		$ob['view_img'],
+			'show_avatars'		=>		$ob['view_avs'],
+			'show_sig'			=>		$ob['view_sigs'],
+			'registered'		=>		$ob['joined'],
+			'last_visit'		=>		$ob['last_visit'],
+			'location'			=>		$ob['location'],
+			'email_setting'	=>		(int)($ob['hide_email'] == "0"),
+			'email'				=>		$ob['email'],
+		);
+
+		if($_SESSION['pun_version'] == '1.1') 
+		{
+			$todb['last_action'] = $ob['last_activity'];
+		}
+
+		// Save data
+		insertdata('users', $todb, __FILE__, __LINE__);
+	}
+	else
+	{
+		$_SESSION['admin_id'] = 1;
+	}
+
+	$location = '<script type="text/javascript">window.location="index.php?page='.++$_GET['page'].'"</script>';
+
+?>
