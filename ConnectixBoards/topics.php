@@ -33,19 +33,19 @@ while($ob = $fdb->fetch_assoc($result))
 
 	// Dataarray
 	$todb = array(
-		'id'			=>		$ob['topic_id'],
-		'poster'		=>		$ob['usr_name'],
-		'subject'		=>		html_entity_decode(htmlspecialchars_decode($ob['topic_name']), ENT_QUOTES, 'UTF-8'),
-		'posted'		=>		$first['msg_timestamp'],
-		'first_post_id'	=>		$first['msg_id'],
-		'num_views'		=>		$ob['topic_views'],
-		'num_replies'	=>		$ob['topic_nbreply'],
-		'last_post'		=>		$last_post['msg_timestamp'],
-		'last_post_id'	=>		$ob['topic_lastmessage'],
-		'last_poster'	=>		$last_post['usr_name'],
-		'sticky'		=>		(int)($ob['topic_type'] > 0),
-		'closed'		=>		(int)($ob['topic_status'] == 1),
-		'forum_id'		=>		$ob['topic_fromtopicgroup'],
+		'id'			=>	$ob['topic_id'],
+		'poster'		=>	$ob['usr_name'],
+		'subject'		=>	html_entity_decode(htmlspecialchars_decode($ob['topic_name']), ENT_QUOTES, 'UTF-8'),
+		'posted'		=>	$first['msg_timestamp'],
+		'first_post_id'	=>	$first['msg_id'],
+		'num_views'		=>	$ob['topic_views'],
+		'num_replies'	=>	$ob['topic_nbreply'],
+		'last_post'		=>	$last_post['msg_timestamp'],
+		'last_post_id'	=>	$ob['topic_lastmessage'],
+		'last_poster'	=>	$last_post['usr_name'],
+		'sticky'		=>	(int)($ob['topic_type'] > 0),
+		'closed'		=>	(int)($ob['topic_status'] == 1),
+		'forum_id'		=>	$ob['topic_fromtopicgroup'],
 	);
 
 	// Save data

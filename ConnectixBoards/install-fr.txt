@@ -1,0 +1,26 @@
+Instructions pour l'installation (Spécifique au convertisseur CB vers FluxBB):
+ 1. Installez FluxBB sur le serveur (example: "www.example.com/fluxbb/").
+ 2. Installez les mods (AutoPoll, New Private Messaging System) si vous voulez convertir les sondages et MPs.
+ 3. Installez le mod Sub forums si vous voulez conserver la structure forum/catégorie telle quelle. *
+ 3. Créez un sous-répertoire dans celui de FluxBB (exemple de nom: "converter").
+ 4. Placez tous les fichiers de l'archive du convertisseur dans ce répertoire.
+ 5. Allez à la page du convertisseur ("www.example.com/fluxbb/converter/").
+ 6. Si votre forum n'est pas situé au même endroit que votre FluxBB, choisissez "Different host/user".
+ 7. Choisissez "ConnectixBoards" comme logiciel de forum à convertir.
+ 8. Entrez le préfixe (cb_ par défaut), l'encodage (ISO-8859-1) et les autres informations demandées. **
+ 9. Appuyez sur 'Start converter'.
+10. Quand le convertisseur a fini, ajoutez/supprimez les admins et modérateurs.
+11. Supprimez/déplacez les fichiers du convertisseur.
+12. Terminé! Vous êtes maintenant prêt à administrer votre FluxBB!
+
+  * Spécifique à ce convertisseur
+
+ ** Si vous ne connaissez pas votre préfixe ni vos paramètres de base de données.
+    vous pouvez les trouver dans le fichier de configuration.
+
+    Si vous trouvez un bug ou que vous éprouvez un problème avec le convertisseur
+    veuillez m'envoyer un courriel:
+     - ishimaru.chiaki@gmail.com
+	ou poster sur l'un de ces forums de support:
+	 - http://fluxbb.org
+	 - http://fluxbb.fr

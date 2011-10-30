@@ -25,12 +25,7 @@ while ($ob = $fdb->fetch_assoc($res))
 		$ob['usr_class'] = PUN_MOD;
 	elseif ($ob['usr_class'] == 3 || $ob['usr_class'] == 4) // user
 		$ob['usr_class'] = PUN_MEMBER;
-/*		else
-		++$group_id;
-*/			
-/*		if ($group_id > $group_count) // something went wrong
-		$group_id = PUN_MEMBER; // set as user
-*/
+
 	if (!in_array($ob['usr_class'], $groups))
 		$ob['usr_class'] = PUN_MEMBER;
 
@@ -52,26 +47,26 @@ while ($ob = $fdb->fetch_assoc($res))
 	
 	// Dataarray
 	$todb = array(
-		'id'				=>		++$ob['usr_id'],
-		'group_id'			=>		$ob['usr_class'],
-		'username'		=>		$ob['usr_name'],
-		'password'		=>		$ob['usr_password'],
-		'url'				=>		$ob['usr_website'],
-		'icq'				=>		$ob['usr_icq'],
-		'msn'				=>		$ob['usr_msn'],
-		'aim'				=>		$ob['usr_aim'],
-		'yahoo'			=>		$ob['usr_yahoo'],
-		'num_posts'		=>		$ob['usr_nbmess'],
-		'last_post'		=>		$last['msg_timestamp'],
-		'location'		=>		$ob['usr_place'],
-		'email_setting'=>		!$ob['usr_publicemail'],
-		'timezone'		=>		(int)$ob['usr_pref_timezone'],
-		'dst'			=>		$ob['usr_pref_ctsummer'],
-		'last_visit'	=>		$ob['usr_lastconnect'],
-		'signature'		=>		convert_posts($ob['usr_signature']),
-		'email'			=>		$ob['usr_email'],
-		'registration_ip' =>	long2ip($ob['usr_ip']),
-		'realname'		=>		$ob['usr_realname'],
+		'id'				=>	++$ob['usr_id'],
+		'group_id'			=>	$ob['usr_class'],
+		'username'			=>	$ob['usr_name'],
+		'password'			=>	$ob['usr_password'],
+		'url'				=>	$ob['usr_website'],
+		'icq'				=>	$ob['usr_icq'],
+		'msn'				=>	$ob['usr_msn'],
+		'aim'				=>	$ob['usr_aim'],
+		'yahoo'				=>	$ob['usr_yahoo'],
+		'num_posts'			=>	$ob['usr_nbmess'],
+		'last_post'			=>	$last['msg_timestamp'],
+		'location'			=>	$ob['usr_place'],
+		'email_setting'		=>	!$ob['usr_publicemail'],
+		'timezone'			=>	(int)$ob['usr_pref_timezone'],
+		'dst'				=>	$ob['usr_pref_ctsummer'],
+		'last_visit'		=>	$ob['usr_lastconnect'],
+		'signature'			=>	convert_posts($ob['usr_signature']),
+		'email'				=>	$ob['usr_email'],
+		'registration_ip'	=>	long2ip($ob['usr_ip']),
+		'realname'			=>	$ob['usr_realname'],
 	);
 
 	// Handle the user registered date
