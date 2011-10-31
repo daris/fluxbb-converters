@@ -11,8 +11,8 @@ while($ob = $fdb->fetch_assoc($result))
 	
 	// Dataarray
 	$todb = array(
-		'g_id'					=>		$ob['gr_id'], 
-		'g_title'			=>		$ob['gr_name'],	
+		'g_id'				=>	$ob['gr_id'], 
+		'g_title'			=>	$ob['gr_name'],	
 		'g_user_title'		=> 	$ob['gr_name'],
 	);
 

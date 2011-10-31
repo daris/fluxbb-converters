@@ -20,15 +20,15 @@ while ($ob = $fdb->fetch_assoc($result))
 
 	// Dataarray
 	$todb = array(
-		'id'		=>		$ob['msg_id'],
-		'poster'	=>		$ob['usr_name'],
-		'poster_id'	=>		$ob['msg_userid'],
-		'posted'	=>		$ob['msg_timestamp'],
-		'poster_ip'	=>		long2ip($ob['msg_userip']),
-		'message'	=>		convert_posts($ob['msg_message']),
-		'topic_id'	=>		$ob['msg_topicid'],
-		'edited'	=>		($ob['msg_modified'] > 0) ? $ob['msg_modified'] : '',
-		'edited_by' =>		isset($ob['modified_usr_name']) ? $ob['modified_usr_name'] : ''
+		'id'		=>	$ob['msg_id'],
+		'poster'	=>	$ob['usr_name'],
+		'poster_id'	=>	$ob['msg_userid'],
+		'posted'	=>	$ob['msg_timestamp'],
+		'poster_ip'	=>	long2ip($ob['msg_userip']),
+		'message'	=>	convert_posts($ob['msg_message']),
+		'topic_id'	=>	$ob['msg_topicid'],
+		'edited'	=>	($ob['msg_modified'] > 0) ? $ob['msg_modified'] : '',
+		'edited_by' =>	isset($ob['modified_usr_name']) ? $ob['modified_usr_name'] : ''
 	);
 
 	// Save data

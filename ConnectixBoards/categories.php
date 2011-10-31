@@ -1,5 +1,5 @@
 <?php
-/*  */
+
 $cat_count = 0;
 // Fetch forum info
 $result = $fdb->query('SELECT * FROM '.$fdb->prefix.'forums') or myerror('Unable to fetch categories', __FILE__, __LINE__, $fdb->error());

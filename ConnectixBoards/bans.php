@@ -1,5 +1,5 @@
 <?php
-
+//Look for banned IPs
 $result = $fdb->query('SELECT * FROM '.$fdb->prefix.'banned') or myerror("Unable to get ban data");
 
 while($ob = $fdb->fetch_assoc($result))

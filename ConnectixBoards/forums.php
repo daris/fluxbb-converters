@@ -17,8 +17,6 @@ while($ob = $fdb->fetch_assoc($result))
 	$last_id = $ob['tg_id'];
 	echo htmlspecialchars($ob['tg_name']).' ('.$ob['tg_id'].")<br>\n"; flush();
 
-	// Check for anonymous poster id problem
-//		$ob['forum_last_post_id'] == -1 ? $ob['forum_last_post_id'] = 1 : null;
 	if ($ob['tg_lasttopic'] > 0)
 	{
 		$lastpostres = $fdb->query('SELECT t.topic_lastmessage, m.msg_id, m.msg_timestamp, m.msg_guest, m.msg_userid, u.usr_id, u.usr_name FROM '.$fdb->prefix.'topics AS t LEFT JOIN '.$fdb->prefix.'messages AS m ON t.topic_lastmessage=m.msg_id LEFT JOIN '.$fdb->prefix.'users AS u ON m.msg_userid=u.usr_id WHERE t.topic_id='.$ob['tg_lasttopic'].' ') or myerror("Unable to fetch forum last post infos for forum conversion.", __FILE__,__LINE__, $fdb->error());
