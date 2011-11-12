@@ -16,30 +16,37 @@ $parts = array(
 	'forums',
 	'topics',
 	'posts',
+	'bans',
 	'end'
 );
 
 $tables = array(
 	'Users'			=>	'members',
 	'Categories'	=>	'categories',
-	'Forums'			=>	'boards',
-	'Topics'			=>	'topics',
+	'Forums'		=>	'boards',
+	'Topics'		=>	'topics',
 	'Posts'			=>	'messages',
+	'Bans'			=>	'bans',
+);
+
+// Used for stats at the end, if the SMF2 table name isn't one of the above
+$tables_conv = array(
+	'Bans'			=> 'ban_items',
 );
 
 // Convert posts BB-code
 function convert_posts($message){
-	
-/*	
+
+/*
 [quote author=Shadow link=topic=2.msg3#msg3 date=1124894525]
 I want some news...
 [/quote]
 No news... and so no forum either.
-*/		
-	
-	
-	
-	
+*/
+
+
+
+
 	$pattern = array(
 		// Other
 		'#\\[quote author=(.*?) link(.*?)\](.*?)\[/QUOTE\]#is',
@@ -49,7 +56,7 @@ No news... and so no forum either.
 		'#\\[size=(.*?)\](.*?)\[/size\]#is',
 		'#\\[list\](.*?)\[/list\]#is',
 		'#\\[li\](.*?)\[/li\]#is',
-		
+
 		// Table
 		'#\\[table\](.*?)\[/table\]#is',
 		'#\\[tr\]#is',
@@ -72,7 +79,7 @@ No news... and so no forum either.
 		'#\\[hr\]#is',
 		'#\\[tt\](.*?)\[/tt\]#is',
 	);
-	
+
 	$replace = array(
 		// Other
 		'[quote=$1]$3[/quote]',
@@ -81,14 +88,14 @@ No news... and so no forum either.
 		'$2',
 		'$2',
 		'[b]List:[/b]$1'."\n",
-		'·$1'."\n",
-		
+		'Â·$1'."\n",
+
 		// Table
 		'$1',
 		'------------------------------------------------------------------'."\n",
 		'------------------------------------------------------------------'."\n",
 		"* $1\n",
-		
+
 		// Removed tags
 		'$2',
 		'$1',
@@ -112,5 +119,5 @@ No news... and so no forum either.
 	$message = str_replace('&nbsp;', ' ', $message);
 
 	return preg_replace($pattern, $replace, $message);
-	
+
 }
