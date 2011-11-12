@@ -185,17 +185,22 @@
 			// FluxBB
 			$rem = $name == 'Users' ? '-1' : ''; // Remove guest user
 			$res1 = $db->query('SELECT count(*)'.$rem.' AS count FROM '.$db->prefix.$name.'');
+			$res1_count = $db->result($res1, 0);
 
 			// Save FluxBB post count
 			if($name == 'Posts')
-				$_SESSION['posts'] = $db->result($res1, 0);
+				$_SESSION['posts'] = $res1_count;
 
 			// Converted forum
 			$rem = isset($tablerem[$name]) ? '-'.$tablerem[$name] : '';
 			$res2 = $fdb->query('SELECT count(*)'.$rem.' AS count FROM '.$fdb->prefix.$value.'');
 
+			// If no count, try the alternative converted forum table
+			if(!$res2) {
+				$res2 = $fdb->query('SELECT count(*)'.$rem.' AS count FROM '.$fdb->prefix.$tables_conv[$name].'');
+			}
 			// Line
-			echo "\n\t\t\t\t<br><b>".$name.":</b> ".@$db->result($res1, 0).' ('.@$fdb->result($res2, 0).')';
+			echo "\n\t\t\t\t<br><b>".$name.":</b> ".$res1_count.' ('.@$fdb->result($res2, 0).')';
 		}
 	}
 
