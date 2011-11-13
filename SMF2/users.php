@@ -5,7 +5,7 @@ if ($db->field_exists('users', 'salt'))
 else
 	$db->add_field('users', 'salt', 'varchar(255)', false, '', 'password');
 
-// Fetch user info	
+// Fetch user info
 $res = $fdb->query('SELECT * FROM '.$fdb->prefix.'members WHERE id_member>'.$start.' ORDER BY id_member LIMIT '.ceil($_SESSION['limit']/5)) or myerror('Unable to fetch user info', __FILE__, __LINE__, $fdb->error());
 $last_id = 0;
 while ($ob = $fdb->fetch_assoc($res))
@@ -32,37 +32,38 @@ while ($ob = $fdb->fetch_assoc($res))
 		$ob['id_member'] = ++$last_user_id;
 		$_SESSION['admin_id'] = $ob['id_member'];
 	}
-	
+
 	if ($ob['id_group'] == 1)
 		$ob['id_group'] = PUN_ADMIN;
 	elseif ($ob['id_group'] == 2 || $ob['id_group'] == 3)
 		$ob['id_group'] = PUN_MOD;
 	else
 		$ob['id_group'] = PUN_MEMBER;
-	
+
 	// Dataarray
 	$todb = array(
-		'id'					=>		$ob['id_member'],
-		'group_id'				=>		$ob['id_group'],
+		'id'				=>		$ob['id_member'],
+		'group_id'			=>		$ob['id_group'],
 		'username'			=>		$ob['member_name'],
 		'password'			=>		$ob['passwd'],
 		'salt'				=>		$ob['password_salt'],
-		'url'					=>		$ob['website_url'],
-		'icq'					=>		$ob['icq'],
-		'msn'					=>		$ob['msn'],
-		'aim'					=>		$ob['aim'],
+		'url'				=>		$ob['website_url'],
+		'icq'				=>		$ob['icq'],
+		'msn'				=>		$ob['msn'],
+		'aim'				=>		$ob['aim'],
 		'yahoo'				=>		$ob['yim'],
 		'signature'			=>		$ob['signature'],
 		'timezone'			=>		$ob['time_offset'],
 		'num_posts'			=>		$ob['posts'],
 		'last_post'			=>		$ob['last_post_time'],
 		'registered'		=>		$ob['date_registered'],
+		'registration_ip'	=>		$ob['member_ip'],
 		'last_visit'		=>		$ob['last_login'],
 		'location'			=>		$ob['location'],
 		'email'				=>		$ob['email_address'],
 	);
 
-	if ($_SESSION['pun_version'] == '1.1') 
+	if ($_SESSION['pun_version'] == '1.1')
 		$todb['last_action'] = $ob['lastLogin'];
 
 	// Save data
