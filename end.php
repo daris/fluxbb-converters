@@ -30,7 +30,8 @@
 	generate_bans_cache();
 	generate_quickjump_cache();
 	generate_config_cache();
-	generate_ranks_cache();
+	if (function_exists('generate_ranks_cache')) // fluxbb 1.5 has dropped ranks table
+		generate_ranks_cache();
 	if (function_exists('generate_users_info_cache')) // fluxbb > 1.4.4
 		generate_users_info_cache();
 	if (function_exists('generate_colorize_groups_cache')) // colorize groups mod

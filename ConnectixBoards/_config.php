@@ -162,8 +162,3 @@ function convert_posts($message)
 	$errors = array();
 	return preparse_bbcode(preg_replace($pattern, $replace, $message), $errors);
 }
-
-function decode_ip($int_ip){
-	$hexipbang = explode('.', chunk_split($int_ip, 2, '.'));
-	return hexdec($hexipbang[0]). '.' . hexdec($hexipbang[1]) . '.' . hexdec($hexipbang[2]) . '.' . hexdec($hexipbang[3]);
-}
